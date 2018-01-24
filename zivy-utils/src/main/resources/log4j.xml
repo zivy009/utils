@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%p [%t] %c{1}.%M(%L) | %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="EVERYDAY" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/MobileServerTest.log" /> <!-- test-->
+		<!-- server<param name="File" value="/legend/legendexe/logs" />-->
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%p [%t] %c{1}.%M(%L) | %m [%d{yyyy-MM-dd HH:mm:ss}] %n " />
+		</layout>
+	</appender>
+
+
+
+	<appender name="EMAIL" class="org.apache.log4j.net.SMTPAppender">
+		<param name="Threshold" value="INFO" />
+		<param name="BufferSize" value="128" />
+		<param name="SMTPHost" value="mail.emapgo.com.cn" />
+		<param name="From" value="zhanghc@emapgo.com.cn" />
+		<param name="To" value="zhanghc@emapgo.com.cn" />
+		<param name="Subject" value=" 系统异常邮件 " />
+		<layout class="org.apache.log4j.PatternLayout">
+			<!--<param name="ConversionPattern" value="[%d{ISO8601}]%n%n%-5p%n%n%c%n%n%m%n%n" 
+				/> -->
+			<param name="ConversionPattern" value="[%d{ISO8601}] %-5p %c %m%n" />
+		</layout>
+	</appender>
+	<!-- <appender name="jdbcChannelLog" class="org.apache.log4j.jdbc.JDBCAppender"> 
+		<param name="driver" value="com.mysql.jdbc.Driver" /> <param name="URL" value="" 
+		/> <param name="user" value=" " /> <param name="password" value=" " /> <param 
+		name="bufferSize" value="1" /> <layout class="org.apache.log4j.PatternLayout"> 
+		<param name="ConversionPattern" value="INSERT INTO LOGGING (log_date,log_level,location,message) 
+		VALUES ('%d{ISO8601}', '%-5p', '%C,%L', '[%m]')" /> </layout> </appender> -->
+	<logger name="org.apache.commons.httpclient">
+		<level value="ERROR" />
+	</logger>
+
+	<logger name="cn.legend.exe">
+		<level value="DEBUG" />
+	</logger>
+	<root>
+		<level value="WARN" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="EVERYDAY" />
+
+	</root>
+
+</log4j:configuration>
